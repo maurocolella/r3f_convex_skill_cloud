@@ -3,10 +3,10 @@ import reportWebVitals from './reportWebVitals';
 
 
 import { createRoot } from 'react-dom/client'
-import React, { useMemo } from 'react'
-import { Canvas } from '@react-three/fiber'
+import React, { useMemo, useRef } from 'react'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
-import { Vector3 } from 'three';
+import { Mesh, Vector3 } from 'three';
 
 const distributeVertices = (samples: number, randomize: any) => {
   let rnd = 1.0;
@@ -47,8 +47,18 @@ function Diamond(props: any) {
     return new ConvexGeometry(vertices)
   }, [vertices])
 
+  const mesh = useRef<Mesh>()
+  // Set up state for the hovered and active state
+  // Subscribe this component to the render-loop, rotate the mesh every frame
+  useFrame((state, delta) => {
+    if (mesh.current) {
+      mesh.current.rotation.x += delta
+      mesh.current.rotation.y -= delta
+    }
+  })
+
   return (
-    <mesh castShadow receiveShadow geometry={geo} {...props} dispose={null}>
+    <mesh castShadow receiveShadow ref={mesh} geometry={geo} {...props} dispose={null}>
       <meshStandardMaterial attach="material" wireframe />
     </mesh>
   )
