@@ -5,6 +5,7 @@ import { createRoot } from 'react-dom/client'
 import React, { useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
+import { OrbitControls } from '@react-three/drei';
 import { Mesh, Vector3 } from 'three';
 
 // Distribute vertices with adequate uniformity within the surface of a spheroid
@@ -48,14 +49,6 @@ function Diamond(props: any) {
   }, [vertices])
 
   const mesh = useRef<Mesh>()
-  // Set up state for the hovered and active state
-  // Subscribe this component to the render-loop, rotate the mesh every frame
-  useFrame((state, delta) => {
-    if (mesh.current) {
-      mesh.current.rotation.x += delta
-      mesh.current.rotation.y -= delta
-    }
-  })
 
   return (
     <mesh castShadow receiveShadow ref={mesh} geometry={geo} {...props} dispose={null}>
@@ -65,10 +58,17 @@ function Diamond(props: any) {
 }
 
 createRoot(document.getElementById('root') as Element).render(
-  <Canvas style={{ boxSizing: 'border-box', border: '1px solid grey', height: '100vh' }}>
+  <Canvas
+    camera={{ position: [0, 0, 4] }}
+    style={{ boxSizing: 'border-box', border: '1px solid grey', height: '100vh' }}
+  >
     <ambientLight />
     <pointLight position={[10, 10, 10]} />
     <Diamond position={[0, 0, 0]} />
+    <OrbitControls
+      autoRotate
+      autoRotateSpeed={20}
+    />
   </Canvas>,
 )
 
