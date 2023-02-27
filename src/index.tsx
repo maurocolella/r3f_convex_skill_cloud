@@ -1,13 +1,13 @@
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-
 import { createRoot } from 'react-dom/client'
 import React, { useMemo, useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { Mesh, Vector3 } from 'three';
 
+// Distribute vertices with adequate uniformity within the surface of a spheroid
 const distributeVertices = (samples: number, randomize: any) => {
   let rnd = 1.0;
   if (randomize) {
