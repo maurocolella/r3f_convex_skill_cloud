@@ -3,7 +3,7 @@ import reportWebVitals from './reportWebVitals';
 
 import { createRoot } from 'react-dom/client'
 import React, { useMemo, useRef } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { OrbitControls } from '@react-three/drei';
 import { Mesh, Vector3 } from 'three';
@@ -52,7 +52,7 @@ function Diamond(props: any) {
 
   return (
     <mesh castShadow receiveShadow ref={mesh} geometry={geo} {...props} dispose={null}>
-      <meshStandardMaterial attach="material" wireframe />
+      <meshStandardMaterial attach="material" wireframe wireframeLinewidth={0.8} />
     </mesh>
   )
 }
@@ -62,12 +62,11 @@ createRoot(document.getElementById('root') as Element).render(
     camera={{ position: [0, 0, 4] }}
     style={{ boxSizing: 'border-box', border: '1px solid grey', height: '100vh' }}
   >
-    <ambientLight />
-    <pointLight position={[10, 10, 10]} />
+    <fog attach="fog" color="#fff" near={0} far={5} />
     <Diamond position={[0, 0, 0]} />
     <OrbitControls
       autoRotate
-      autoRotateSpeed={20}
+      autoRotateSpeed={16}
     />
   </Canvas>,
 )
