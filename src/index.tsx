@@ -36,8 +36,7 @@ createRoot(document.getElementById('root') as Element).render(
   <Canvas style={{ boxSizing: 'border-box', border: '1px solid grey', height: '100vh' }}>
     <ambientLight />
     <pointLight position={[10, 10, 10]} />
-    <Box position={[-1.2, 0, 0]} />
-    <Box position={[1.2, 0, 0]} />
+    <Box position={[0, 0, 0]} />
   </Canvas>,
 )
 
