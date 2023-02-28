@@ -21,7 +21,7 @@ export const App:React.FC<{}> = () => {
     camera={{ position: [0, 0, 4] }}
     style={{ boxSizing: 'border-box', height: '100vh' }}
   >
-    <fog attach="fog" color="#fff" near={1} far={8} />
+    <fog attach="fog" color="#fff" near={1} far={6.5} />
     <Diamond vertices={vertices} />
     <Globe radius={1.1} />
     <OrbitControls
