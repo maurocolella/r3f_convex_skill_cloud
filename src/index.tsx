@@ -2,11 +2,11 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 import { createRoot } from 'react-dom/client'
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { OrbitControls } from '@react-three/drei';
-import { Mesh, Vector3 } from 'three';
+import { Vector3 } from 'three';
 
 // Distribute vertices with adequate uniformity within the surface of a spheroid
 const distributeVertices = (samples: number, randomize: any) => {
@@ -48,25 +48,47 @@ function Diamond(props: any) {
     return new ConvexGeometry(vertices)
   }, [vertices])
 
-  const mesh = useRef<Mesh>()
-
   return (
-    <mesh castShadow receiveShadow ref={mesh} geometry={geo} {...props} dispose={null}>
-      <meshStandardMaterial attach="material" wireframe wireframeLinewidth={0.8} />
-    </mesh>
+    <>
+      <mesh geometry={geo} {...props} dispose={null}>
+        <meshBasicMaterial
+          attach="material"
+          color={'#0033cc'}
+        />
+      </mesh>
+      <mesh geometry={geo} {...props} dispose={null}>
+        <meshBasicMaterial
+          attach="material"
+          wireframe
+          transparent
+          color="white"
+          wireframeLinewidth={0.8}
+        />
+      </mesh>
+    </>
   )
 }
+
+const Globe = ({ radius = 1 }) => {
+  return (
+    <mesh scale={ radius }>
+      <sphereBufferGeometry />
+      <meshStandardMaterial wireframe wireframeLinewidth={0.5} transparent opacity={0.1} />
+    </mesh>
+  );
+};
 
 createRoot(document.getElementById('root') as Element).render(
   <Canvas
     camera={{ position: [0, 0, 4] }}
-    style={{ boxSizing: 'border-box', border: '1px solid grey', height: '100vh' }}
+    style={{ boxSizing: 'border-box', height: '100vh' }}
   >
-    <fog attach="fog" color="#fff" near={0} far={5} />
-    <Diamond position={[0, 0, 0]} />
+    <fog attach="fog" color="#fff" near={1} far={8} />
+    <Diamond />
+    <Globe radius={1.1} />
     <OrbitControls
       autoRotate
-      autoRotateSpeed={16}
+      autoRotateSpeed={8}
     />
   </Canvas>,
 )
