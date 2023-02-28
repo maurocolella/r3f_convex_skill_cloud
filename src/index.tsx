@@ -8,7 +8,17 @@ import { ConvexGeometry } from 'three/examples/jsm/geometries/ConvexGeometry';
 import { OrbitControls } from '@react-three/drei';
 import { Vector3 } from 'three';
 
+const data = [
+  { label: 'AWS', rating: 0.87 },
+  { label: 'React', rating: 0.94 },
+  { label: 'Front-end', rating: 1 },
+  { label: 'Back-end', rating: 1 },
+  { label: 'Full stack', rating: 1 },
+];
+
 // Distribute vertices with adequate uniformity within the surface of a spheroid
+// Implements the Fibonnaci sphere algorithm, see:
+// https://stackoverflow.com/questions/9600801/evenly-distributing-n-points-on-a-sphere/26127012#26127012
 const distributeVertices = (samples: number, randomize: any) => {
   let rnd = 1.0;
   if (randomize) {
@@ -41,22 +51,20 @@ const distributeVertices = (samples: number, randomize: any) => {
   return points;
 }
 
-function Diamond(props: any) {
-  const vertices = distributeVertices(20, false);
-
+function Diamond({ vertices, ...rest } : { vertices: Vector3[] }) {
   const geo = useMemo(() => {
     return new ConvexGeometry(vertices)
   }, [vertices])
 
   return (
     <>
-      <mesh geometry={geo} {...props} dispose={null}>
+      <mesh geometry={geo} {...rest} dispose={null}>
         <meshBasicMaterial
           attach="material"
           color={'#0033cc'}
         />
       </mesh>
-      <mesh geometry={geo} {...props} dispose={null}>
+      <mesh geometry={geo} {...rest} dispose={null}>
         <meshBasicMaterial
           attach="material"
           wireframe
@@ -78,20 +86,26 @@ const Globe = ({ radius = 1 }) => {
   );
 };
 
-createRoot(document.getElementById('root') as Element).render(
-  <Canvas
+
+const App = () => {
+  const count = data.length;
+  const vertices = useMemo(() => distributeVertices(count, false), [count]);
+
+  return (<Canvas
     camera={{ position: [0, 0, 4] }}
     style={{ boxSizing: 'border-box', height: '100vh' }}
   >
     <fog attach="fog" color="#fff" near={1} far={8} />
-    <Diamond />
+    <Diamond vertices={vertices} />
     <Globe radius={1.1} />
     <OrbitControls
       autoRotate
       autoRotateSpeed={8}
     />
-  </Canvas>,
-)
+  </Canvas>)
+}
+
+createRoot(document.getElementById('root') as Element).render(<App />)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
