@@ -40,7 +40,7 @@ export const App:React.FC<{ skills: Skill[] }> = ({ skills }) => {
     <fog attach="fog" color="#fff" near={2} far={7.5} />
     <Diamond vertices={fibVertices} />
     <Globe />
-    <Globe radius={outerRadius} />
+    <Globe radius={outerRadius} opacity={0.05} />
     <Spokes vertices={weightedVertices} />
     <OrbitControls
       autoRotate
