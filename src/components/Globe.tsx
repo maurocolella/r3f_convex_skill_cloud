@@ -1,4 +1,4 @@
-export const Globe:React.FC<{ radius: number }> = ({ radius = 1 }) => {
+export const Globe:React.FC<{ radius?: number }> = ({ radius = 1 }) => {
   return (
     <mesh scale={radius}>
       <sphereBufferGeometry />
