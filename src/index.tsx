@@ -27,6 +27,7 @@ const data = [
   { label: 'Data Engineering', rating: 0.85 },
   { label: 'Terraform', rating: 0.82 },
   { label: 'k8s', rating: 0.79 },
+  { label: 'MLOps', rating: 0.79 },
 ];
 
 createRoot(document.getElementById('root') as Element).render(<App skills={data} />)
