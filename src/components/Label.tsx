@@ -1,7 +1,17 @@
 import { useMemo } from 'react';
-import { Texture } from 'three';
+import { Texture, Vector3 } from 'three';
 
-export const Label:React.FC<{ text: string, textureSize?: number, position: any }> = ({ text, textureSize = 512, position }) => {
+interface labelProps {
+  text: string
+  textureSize ?: number
+  position?: Vector3
+}
+
+export const Label:React.FC<labelProps> = ({
+  text,
+  textureSize = 512,
+  position = new Vector3(0,0,0),
+}) => {
   const texture = useMemo(() => {
     let canvas = document.createElement('canvas');
     canvas.width = textureSize;

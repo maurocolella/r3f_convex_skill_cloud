@@ -1,8 +1,20 @@
-export const Globe:React.FC<{ radius?: number, opacity?: number }> = ({ radius = 1, opacity = 0.1 }) => {
+interface globeProps {
+  radius?: number
+  opacity?: number
+  depthTest?: boolean
+}
+
+export const Globe:React.FC<globeProps> = ({ radius = 1, opacity = 0.1, depthTest = true }) => {
   return (
     <mesh scale={radius}>
       <sphereBufferGeometry />
-      <meshStandardMaterial wireframe wireframeLinewidth={0.5} transparent opacity={opacity} />
+      <meshStandardMaterial
+        wireframe
+        wireframeLinewidth={0.5}
+        transparent
+        opacity={opacity}
+        depthTest={depthTest}
+      />
     </mesh>
   );
 };

@@ -20,7 +20,7 @@ export const App:React.FC<{ skills: Skill[] }> = ({ skills }) => {
     const result = [];
 
     for(let i = 0; i < skills.length; i++) {
-      const scalar = skills[i].rating * outerRadius ;
+      const scalar = skills[i].rating * outerRadius * 1.2;
       const vert = fibVertices[i];
 
       // Prepare weighted line segments
@@ -56,7 +56,11 @@ export const App:React.FC<{ skills: Skill[] }> = ({ skills }) => {
     <fog attach="fog" color="#fff" near={2} far={7.5} />
     <Diamond vertices={fibVertices} />
     <Globe />
-    <Globe radius={outerRadius * 0.9} opacity={0.045} />
+    <Globe
+      radius={outerRadius * 0.9}
+      opacity={0.045}
+      depthTest={false}
+    />
     <Spokes vertices={segmentVertices} />
     {skills.map((skill, index) => (
       <Label key={index} text={skill.label} position={weightedVertices[index]} />
