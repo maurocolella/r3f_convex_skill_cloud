@@ -32,6 +32,7 @@ const data = [
   { label: 'MLOps', rating: 0.79 },
   { label: 'WebGL', rating: 0.93 },
   { label: 'D3', rating: 0.92 },
+  { label: 'GraphQL', rating: 0.85 },
 ];
 
 createRoot(document.getElementById('root') as Element).render(<App skills={data} />)
