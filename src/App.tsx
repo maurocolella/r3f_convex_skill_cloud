@@ -19,7 +19,7 @@ export const App:React.FC<{ skills: Skill[] }> = ({ skills }) => {
 
   return (<Canvas
     camera={{ position: [0, 0, 4.5] }}
-    style={{ boxSizing: 'border-box', height: '100vh' }}
+    style={{ cursor: 'grab' }}
   >
     <fog attach="fog" color="#fff" near={2} far={7.5} />
     <Diamond vertices={fibVertices} />
