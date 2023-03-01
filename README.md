@@ -1,5 +1,7 @@
 # React App using @react-three
 
+![Project screenshot](/public/screenshot.png)
+
 This project was built with [Create React App](https://github.com/facebook/create-react-app) and [@react-three](https://github.com/pmndrs/react-three-fiber).
 
 ## Available Scripts
