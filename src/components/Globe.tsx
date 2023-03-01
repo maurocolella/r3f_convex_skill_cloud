@@ -7,7 +7,7 @@ interface globeProps {
 export const Globe:React.FC<globeProps> = ({ radius = 1, opacity = 0.1, depthTest = true }) => {
   return (
     <mesh scale={radius}>
-      <sphereBufferGeometry />
+      <sphereGeometry />
       <meshStandardMaterial
         wireframe
         wireframeLinewidth={0.5}

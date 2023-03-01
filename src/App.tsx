@@ -1,12 +1,11 @@
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { useMemo } from 'react';
-import { Vector3 } from 'three';
 import { Diamond } from './components/Diamond';
 import { Globe } from './components/Globe';
 import { Label } from './components/Label';
 import { Spokes } from './components/Spokes';
 import { distributeVertices } from './lib/distributeVertices';
+import { useWeights } from './lib/useWeights';
 
 export type Skill = {
   label: string
@@ -16,38 +15,7 @@ export type Skill = {
 export const App:React.FC<{ skills: Skill[] }> = ({ skills }) => {
   const outerRadius = 2;
   const fibVertices = distributeVertices(skills.length, false);
-  const weightedVertices = useMemo(() => {
-    const result = [];
-
-    for(let i = 0; i < skills.length; i++) {
-      const scalar = skills[i].rating * outerRadius * 1.2;
-      const vert = fibVertices[i];
-
-      // Prepare weighted line segments
-      result.push(
-        new Vector3(vert.x * scalar, vert.y * scalar, vert.z * scalar)
-      );
-    }
-
-    return result;
-  }, [fibVertices, skills]);
-  const segmentVertices = useMemo(() => {
-    const result = [];
-    const origin = new Vector3(0, 0, 0);
-    const scalar = 0.95;
-
-    for (let i = 0; i < weightedVertices.length; i++) {
-      const vert = weightedVertices[i];
-
-      // Prepare weighted line segments
-      result.push(
-        origin,
-        new Vector3(vert.x * scalar, vert.y * scalar, vert.z * scalar),
-      );
-    }
-
-    return result;
-  }, [weightedVertices]);
+  const { weightedVertices, segmentVertices } = useWeights(skills, fibVertices, outerRadius);
 
   return (<Canvas
     camera={{ position: [0, 0, 4.5] }}
