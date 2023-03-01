@@ -17,6 +17,8 @@ const data = [
   { label: 'Back-end', rating: 1 },
   { label: 'Next.js', rating: 0.94 },
   { label: 'Full stack', rating: 1 },
+  { label: 'HTML', rating: 1 },
+  { label: 'CSS', rating: 1 },
   { label: 'JavaScript', rating: 0.93 },
   { label: 'TypeScript', rating: 0.88 },
   { label: 'PHP', rating: 0.93 },
@@ -28,6 +30,8 @@ const data = [
   { label: 'Terraform', rating: 0.82 },
   { label: 'k8s', rating: 0.79 },
   { label: 'MLOps', rating: 0.79 },
+  { label: 'WebGL', rating: 0.93 },
+  { label: 'D3', rating: 0.92 },
 ];
 
 createRoot(document.getElementById('root') as Element).render(<App skills={data} />)
