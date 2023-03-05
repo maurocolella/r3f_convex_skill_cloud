@@ -6,7 +6,6 @@ import { App } from './App';
 
 const data = [
   { label: 'AWS', rating: 0.87 },
-  { label: 'Systems', rating: 0.87 },
   { label: 'Architecture', rating: 0.87 },
   { label: 'SysOps', rating: 0.88 },
   { label: 'DevOps', rating: 0.88 },
